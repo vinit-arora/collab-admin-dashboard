@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
+import {FirestoreService} from './firestore.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private titleService: Title,
-    private iconSetService: IconSetService
+    private iconSetService: IconSetService,
+    private fireStoreService: FirestoreService
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton
@@ -28,5 +30,8 @@ export class AppComponent implements OnInit {
         return;
       }
     });
+    this.fireStoreService.postLikeComment();
+    // this.fireStoreService.getAllUsers();
+    // getPostLikeComment();
   }
 }

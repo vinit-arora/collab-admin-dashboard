@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { getStyle } from '@coreui/utils';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
-
+import {FirestoreService} from '../../../firestore.service'
 @Component({
   selector: 'app-widgets-dropdown',
   templateUrl: './widgets-dropdown.component.html',
@@ -18,8 +18,12 @@ import { ChartjsComponent } from '@coreui/angular-chartjs';
 })
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
+    
+  totalUsers:any;
+  totalPosts:any;
   constructor(
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private firestoreService: FirestoreService
   ) {}
 
   data: any[] = [];
@@ -121,10 +125,24 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     this.changeDetectorRef.detectChanges();
+   
+     
 
   }
 
   setData() {
+    
+   this.firestoreService.getAllUsers((size:any)=>{
+    this.totalUsers=size;
+   });
+    
+   this.firestoreService.postLikeComment().then((x)=>{
+   if(x) this.totalPosts=x['postCount']
+    //  console.log(x['postCount']);
+   
+  });
+  
+  // this.printAddress(myCallback);
     for (let idx = 0; idx < 4; idx++) {
       this.data[idx] = {
         labels: idx < 3 ? this.labels.slice(0, 7) : this.labels,
@@ -176,7 +194,10 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 })
 export class ChartSample implements AfterViewInit {
 
-  constructor() {}
+ 
+  constructor() {
+   
+  }
 
   @ViewChild('chart') chartComponent!: ChartjsComponent;
 
