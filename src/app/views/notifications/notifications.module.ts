@@ -12,6 +12,7 @@ import {
   PopoverModule,
   ProgressModule,
   SharedModule,
+  TableModule,
   ToastModule,
   TooltipModule,
   UtilitiesModule
@@ -23,21 +24,18 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { NotificationsRoutingModule } from './notifications-routing.module';
 
 import { AlertsComponent } from './alerts/alerts.component';
-import { BadgesComponent } from './badges/badges.component';
-import { ModalsComponent } from './modals/modals.component';
-// import { ToastsComponent } from './toasts/toasts.component';
-import { ToastersComponent } from './toasters/toasters.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AppToastComponent } from './toasters/toast-simple/toast.component';
+ 
+ 
+ 
+import { ReactiveFormsModule,FormsModule} from '@angular/forms';
+ 
 
 @NgModule({
   declarations: [
-    BadgesComponent,
+ 
     AlertsComponent,
-    ModalsComponent,
-    // ToastsComponent,
-    ToastersComponent,
-    AppToastComponent,
+  
+    
   ],
   imports: [
     CommonModule,
@@ -57,7 +55,9 @@ import { AppToastComponent } from './toasters/toast-simple/toast.component';
     TooltipModule,
     PopoverModule,
     ProgressModule,
-    IconModule
+    IconModule,
+    FormsModule,
+    TableModule
   ],
 })
 export class NotificationsModule {

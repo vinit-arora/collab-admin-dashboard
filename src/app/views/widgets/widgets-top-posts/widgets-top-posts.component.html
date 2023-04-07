@@ -1,0 +1,80 @@
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Top posts</c-card-header>
+      <c-card-body>
+        <table
+        [hover]="true"
+        [responsive]="true"
+        [striped]="true"
+        align="middle"
+        cTable
+        class="mb-0 border"
+        >
+          <thead cTableColor="light">
+            <tr>
+              <th class="text-center">
+                <svg cIcon name="cilPeople"></svg>
+              </th>
+              <th>PostLink</th>
+              <th class="text-center">Author Name</th>
+              <th>Likes</th>
+              <th class="text-center"></th>
+              <th>Posted at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of posts; index as i">
+              <td class="text-center">
+                <!-- <c-avatar
+                  size="md"
+                  src="{{ user.displayName }}"
+                  status="{{ user.status }}"
+                ></c-avatar> -->
+              </td>
+              <td>
+                <div><a href="www.google.com">Postlink</a></div>
+                <div class="small text-medium-emphasis text-nowrap">
+                  <!-- <span>
+                    {{ user.followers }} | Registered: {{ user.registered }}
+                  </span> -->
+                </div>
+              </td>
+              <td class="text-center">
+                <div>{{ post.authorName }}</div>
+              </td>
+              <td>
+                <div class="d-flex justify-content-between">
+                  <div class="float-start">
+                    <strong>
+                      {{ post.likes }}
+                    </strong>
+                  </div>
+                  <div class="float-end ms-1 text-nowrap">
+                    <!-- <small class="text-medium-emphasis">
+                      {{ post.comments.length}}
+                    </small> -->
+                  </div>
+                </div>
+                <!-- <c-progress thin>
+                  <c-progress-bar
+                    [value]="user.usage"
+                    color="{{ user.color }}"
+                  ></c-progress-bar>
+                </c-progress> -->
+              </td>
+              <td class="text-center">
+                <!-- <svg ></svg> -->
+              </td>
+              <td>
+                <div class="small text-medium-emphasis">Date</div>
+                <div class="fw-semibold text-nowrap">{{post.createdAt.toDate().getDate()+"/"+ post.createdAt.toDate().getMonth()+"/" + post.createdAt.toDate().getFullYear()}}</div>
+                <!-- <div class="fw-semibold text-nowrap">{{  user.createdAt.toDate(). }}</div> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

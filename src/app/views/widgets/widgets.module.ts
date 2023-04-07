@@ -8,7 +8,8 @@ import {
   GridModule,
   ProgressModule,
   SharedModule,
-  WidgetModule
+  WidgetModule,
+  TableModule
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -20,6 +21,7 @@ import { WidgetsComponent } from './widgets/widgets.component';
 import { WidgetsBrandComponent } from './widgets-brand/widgets-brand.component';
 import { ChartSample, WidgetsDropdownComponent } from './widgets-dropdown/widgets-dropdown.component';
 import { WidgetsEComponent } from './widgets-e/widgets-e.component';
+import { WidgetsTopPostsComponent } from './widgets-top-posts/widgets-top-posts.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { WidgetsEComponent } from './widgets-e/widgets-e.component';
     WidgetsBrandComponent,
     WidgetsDropdownComponent,
     ChartSample,
-    WidgetsEComponent
+    WidgetsEComponent,
+    WidgetsTopPostsComponent
   ],
   imports: [
     CommonModule,
@@ -41,11 +44,13 @@ import { WidgetsEComponent } from './widgets-e/widgets-e.component';
     CardModule,
     DocsComponentsModule,
     ProgressModule,
+    TableModule,
     ChartjsModule
   ],
   exports: [
     WidgetsBrandComponent,
-    WidgetsDropdownComponent
+    WidgetsDropdownComponent,
+    WidgetsTopPostsComponent
   ]
 })
 export class WidgetsModule {

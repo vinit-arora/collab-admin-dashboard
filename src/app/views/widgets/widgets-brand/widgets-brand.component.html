@@ -7,7 +7,7 @@
       class="mb-4"
     >
       <svg [name]="widget.icon" cIcon class="my-4 text-white" height="52"></svg>
-      <ng-container *ngIf="withCharts">
+      <!-- <ng-container *ngIf="withCharts">
         <c-chart
           #chart="cChart"
           [data]="widget.data"
@@ -16,7 +16,7 @@
           type="line"
         >{{ chart.id }}</c-chart
         >
-      </ng-container>
+      </ng-container> -->
     </c-widget-stat-d>
   </c-col>
 </c-row>

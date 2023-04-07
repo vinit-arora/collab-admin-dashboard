@@ -21,6 +21,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     
   totalUsers:any;
   totalPosts:any;
+  totalPostsByAdmin=0;
+  userWithMaximumPost:any;
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private firestoreService: FirestoreService
@@ -132,23 +134,32 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   setData() {
     
-   this.firestoreService.getAllUsers((size:any)=>{
+   this.firestoreService.getUserCount((size:any)=>{
     this.totalUsers=size;
    });
     
    this.firestoreService.postLikeComment().then((x)=>{
-   if(x) this.totalPosts=x['postCount']
-    //  console.log(x['postCount']);
+   if(x) this.totalPosts=x;
+     
    
   });
   
-  // this.printAddress(myCallback);
+   this.firestoreService.userWithMaximumPost().then((x)=>{
+    if(x) this.userWithMaximumPost=x;
+     console.log(this.userWithMaximumPost.displayName);
+   })
     for (let idx = 0; idx < 4; idx++) {
       this.data[idx] = {
         labels: idx < 3 ? this.labels.slice(0, 7) : this.labels,
         datasets: this.datasets[idx]
       };
     }
+
+    this.firestoreService.postsByAdmin().then((x)=>{
+      
+      if(x) this.totalPostsByAdmin=x;
+      console.log(this.totalPostsByAdmin)
+    })
     this.setOptions();
   }
 

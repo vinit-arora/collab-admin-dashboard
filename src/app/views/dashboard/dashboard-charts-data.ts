@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/utils';
-
+import { FirestoreService } from 'src/app/firestore.service';
 export interface IChartProps {
   data?: any;
   labels?: any;
@@ -16,8 +16,16 @@ export interface IChartProps {
   providedIn: 'any'
 })
 export class DashboardChartsData {
-  constructor() {
+
+  postCount:[]=[];
+  likeCount:[]=[];
+  commentCount:[]=[];
+  dataLoaded = false;
+
+  constructor(private firestoreService:FirestoreService) {
+    
     this.initMainChart();
+    
   }
 
   public mainChart: IChartProps = {};
@@ -26,7 +34,7 @@ export class DashboardChartsData {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  initMainChart(period: string = 'Month') {
+  async initMainChart(period: string = 'Month') {
     const brandSuccess = getStyle('--cui-success') ?? '#4dbd74';
     const brandInfo = getStyle('--cui-info') ?? '#20a8d8';
     const brandInfoBg = hexToRgba(getStyle('--cui-info'), 10) ?? '#20a8d8';
@@ -40,12 +48,25 @@ export class DashboardChartsData {
     this.mainChart['Data3'] = [];
 
     // generate random values for mainChart
-    for (let i = 0; i <= this.mainChart['elements']; i++) {
-      this.mainChart['Data1'].push(this.random(50, 240));
-      this.mainChart['Data2'].push(this.random(20, 160));
-      this.mainChart['Data3'].push(65);
-    }
+    
+    this.firestoreService.getpostLikeComment().then(async (result)=>{
+      result.forEach( (x:any)=>{
+        this.mainChart['Data1'].push( x.postCount),
+        this.mainChart['Data2'].push(  x.likeCount),
+        this.mainChart['Data3'].push(  x.commentCount)
+        console.log(x.postCount+" "+x.likeCount+" "+x.commentCount);
+      })
+      this.dataLoaded=true;
+      // console.log(result)
+      
+    })
 
+    // for (let i = 0; i <= 3; i++) {
+    //   this.mainChart['Data1'].push(this.random(50, 240));
+    //   this.mainChart['Data2'].push(this.random(20, 160));
+    //   this.mainChart['Data3'].push(this.random(20, 160));
+    // }
+    
     let labels: string[] = [];
     if (period === 'Month') {
       labels = [
@@ -104,17 +125,17 @@ export class DashboardChartsData {
     const datasets = [
       {
         data: this.mainChart['Data1'],
-        label: 'Current',
+        label: 'posts',
         ...colors[0]
       },
       {
         data: this.mainChart['Data2'],
-        label: 'Previous',
+        label: 'likes',
         ...colors[1]
       },
       {
         data: this.mainChart['Data3'],
-        label: 'BEP',
+        label: 'comments',
         ...colors[2]
       }
     ];
